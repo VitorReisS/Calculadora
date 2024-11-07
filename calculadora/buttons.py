@@ -1,6 +1,5 @@
 import math
 from typing import TYPE_CHECKING
-
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QGridLayout, QPushButton
 from utils import isEmpty, isNumOrDot, isValidNumber
@@ -23,9 +22,7 @@ class Button(QPushButton):
         self.setMinimumSize(75, 75)
 
 class ButtonsGrid(QGridLayout):
-    def __init__(
-            self, display: 'Display', info: 'Info', window: 'MainWindow', *args, **kwargs
-    ) -> None:
+    def __init__(self, display: 'Display', info: 'Info', window:'MainWindow', *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
         self._gridMask = [
@@ -78,14 +75,11 @@ class ButtonsGrid(QGridLayout):
         if text == 'C':
             self._connectButtonClicked(button, self._clear)
 
-        if text in 'D':
+        if text == 'D':
             self._connectButtonClicked(button, self.display.backspace)
 
         if text in '+-/*^':
-            self._connectButtonClicked(
-                button,
-                self._makeSlot(self._operatorClicked, button)
-            )
+            self._connectButtonClicked(button, self._makeSlot(self._operatorClicked, button))
 
         if text in '=':
             self._connectButtonClicked(button, self._eq)
@@ -158,17 +152,17 @@ class ButtonsGrid(QGridLayout):
         if result == 'error':
             self._left = None
 
-    def _makeDialog(self, text):
+    def _makeDiaLog(self, text):
         msgBox = self.window.makeMsgBox()
         msgBox.setText(text)
         return msgBox
-
+    
     def _showError(self, text):
-        msgBox = self._makeDialog(text)
+        msgBox = self._makeDiaLog(text)
         msgBox.setIcon(msgBox.Icon.Critical)
         msgBox.exec()
 
     def _showInfo(self, text):
-        msgBox = self._makeDialog(text)
+        msgBox = self._makeDiaLog(text)
         msgBox.setIcon(msgBox.Icon.Information)
         msgBox.exec()

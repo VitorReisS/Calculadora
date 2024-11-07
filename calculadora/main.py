@@ -1,18 +1,17 @@
 import sys
-
-from buttons import ButtonsGrid
+from PySide6.QtGui import QIcon
 from display import Display
 from info import Info
-from main_window import MainWindow
-from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
+from main_window import MainWindow
 from styles import setupTheme
+from buttons import ButtonsGrid
 from variables import WINDOW_ICON_PATH
 
 if __name__ == '__main__':
     # Cria a aplicação
     app = QApplication(sys.argv)
-    setupTheme()
+    setupTheme(app)
     window = MainWindow()
 
     # Define o ícone
